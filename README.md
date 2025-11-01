@@ -20,7 +20,7 @@ A GitHub Action that packages and uploads GNOME Shell extensions to extensions.g
 |-------|-------------|----------|---------|
 | `source-dir` | Extension source directory | No | `.` |
 | `output-dir` | Package output directory | No | `.` |
-| `extra-source` | Additional source files to include (comma-separated) | No | |
+| `extra-source` | Additional source files to include (newline-separated for multiple files) | No | |
 | `schema` | GSettings schema that should be included | No | |
 | `podir` | Directory where translations are found | No | |
 | `gettext-domain` | Gettext domain to use for translations | No | |
@@ -54,6 +54,17 @@ A GitHub Action that packages and uploads GNOME Shell extensions to extensions.g
     username: ${{ secrets.GNOME_USERNAME }}
     password: ${{ secrets.GNOME_PASSWORD }}
     accept-tos: true
+```
+
+### Package with extra source files
+
+```yaml
+- uses: murar8/gnome-extensions-action@0.1.0
+  with:
+    source-dir: ./extension
+    extra-source: |
+      ./extra-file-1.js
+      ./extra-file-2.js
 ```
 
 ## Development

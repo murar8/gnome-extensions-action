@@ -16,7 +16,7 @@ inputs:
     default: "."
 
   extra-source:
-    description: "Additional source files to include (comma-separated)"
+    description: "Additional source files to include (newline-separated for multiple files)"
     required: false
   schema:
     description: "GSettings schema that should be included"

@@ -75,14 +75,17 @@ jobs:
         uses: ./
         with:
           source-dir: ./test-extension
-          output-dir: ./build
+          output-dir: ./build-extra
+          extra-source: |
+            ./extra-1.js
+            ./extra-2.js
 
       - name: Verify extension
         run: |
-          test -f ./build/test-extension@example.com.shell-extension.zip
+          test -f ./build-extra/test-extension@example.com.shell-extension.zip
           tmpdir=$(mktemp -d)
           mkdir -p $tmpdir/extracted
-          unzip -q ./build/test-extension@example.com.shell-extension.zip -d $tmpdir/extracted
+          unzip -q ./build-extra/test-extension@example.com.shell-extension.zip -d $tmpdir/extracted
           diff -r ./test-extension $tmpdir/extracted
-          echo "All tests passed!"
+          echo "Extension with extra sources test passed!"
           rm -rf $tmpdir

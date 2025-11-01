@@ -11,7 +11,15 @@ fi
 if [ -n "$INPUT_SOURCE_DIR" ]; then
 	PACK_ARGS=()
 	if [ "$INPUT_FORCE" = "true" ]; then PACK_ARGS+=(--force); fi
-	if [ -n "$INPUT_EXTRA_SOURCE" ]; then PACK_ARGS+=(--extra-source "$INPUT_EXTRA_SOURCE"); fi
+	if [ -n "$INPUT_EXTRA_SOURCE" ]; then
+		while IFS= read -r source; do
+			# Trim whitespace
+			source=$(echo "$source" | xargs)
+			if [ -n "$source" ]; then
+				PACK_ARGS+=(--extra-source "$source")
+			fi
+		done <<<"$INPUT_EXTRA_SOURCE"
+	fi
 	if [ -n "$INPUT_GETTEXT_DOMAIN" ]; then PACK_ARGS+=(--gettext-domain "$INPUT_GETTEXT_DOMAIN"); fi
 	if [ -n "$INPUT_OUTPUT_DIR" ]; then PACK_ARGS+=(--out-dir "$INPUT_OUTPUT_DIR"); fi
 	if [ -n "$INPUT_PODIR" ]; then PACK_ARGS+=(--podir "$INPUT_PODIR"); fi
